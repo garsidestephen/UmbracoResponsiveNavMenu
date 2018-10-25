@@ -1,4 +1,4 @@
-# UmbracoResponsiveNavMenu
+# Umbraco Responsive Nav Menu
 A free Umbraco Responsive Nav Menu.
 
 It uses Font Awesome for the burger and drop down icons so you will need to include a ref in your page to:-
