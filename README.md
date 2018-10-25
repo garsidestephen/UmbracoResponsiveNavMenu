@@ -7,6 +7,11 @@ https://use.fontawesome.com/releases/v5.4.1/css/all.css
 In your page Razor include:-
 @Html.Partial("~/Views/Partials/Components/Nav.cshtml")
 
-Also add to your pages a ref to the css and js files.  I have also included the SCSS files and es5 js if required. 
+Also add to your pages a ref to the css and js files.  I have also included the SCSS files and es5 js if required.
+
+To init the nav use the following code:-
+$(() => {
+    Nav.init();
+});
 
 
