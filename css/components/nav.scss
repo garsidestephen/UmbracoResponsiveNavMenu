@@ -1,0 +1,239 @@
+﻿.nav
+{
+    $self: &;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    font-size: rems(16px);
+    line-height: rems(20px);
+
+    &__logo__link,
+    &__menu__list__item__link,
+    &__menu__list__item__sub-list__link
+    {
+        text-decoration: none;
+    }
+
+    &__logo
+    {
+        padding: rems(10px) rems(15px);
+    }
+
+    &__menu
+    {
+        width: 100%;
+        position: relative;
+
+        &__list, &__list__item__sub-list
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 0;
+            opacity: 0;
+            transition: opacity ease-out 0.1s;
+        }
+
+        &__list__item__link, &__list__item__sub-list__link
+        {
+            display: block;
+            padding: rems(5px) 0;
+        }
+
+        &__list
+        {
+            width: 100%;
+            position: absolute;
+            z-index: 999;
+            padding: rems(10px);
+            top: 0;
+
+            &--active
+            {
+                height: auto;
+                opacity: 1;
+                transition: opacity ease-in 0.3s;
+            }
+
+            &__item
+            {
+                position: relative;
+
+                &__link
+                {
+                    display:flex;
+                    flex-direction:row;
+                    align-items:center;
+
+                    &__caret
+                    {
+                        cursor: pointer;
+                        padding-left: rems(10px);
+                        flex-grow: 2;
+                        text-align:right;
+                    }
+                }
+
+                &__sub-list
+                {
+                    width: 100%;
+
+                    &--active
+                    {
+                        padding: rems(10px);
+                        height: auto;
+                        opacity: 1;
+                        transition: opacity ease-in 0.3s;
+                    }
+
+                    &__link
+                    {
+                    }
+                }
+            }
+        }
+    }
+
+    @media (min-width:1024px)
+    {
+        &__menu
+        {
+            display: flex;
+            flex-grow: 2;
+            flex-direction: row;
+            justify-content: flex-end;
+            width: auto;
+
+            &__list, &__list__item__sub-list
+            {
+                position: absolute;
+                left: 0;
+                z-index: 999;
+            }
+
+            &__list, &__list--active
+            {
+                display: block;
+                height: auto;
+                opacity: 1;
+            }
+
+            &__list
+            {
+                margin: rems(5px) 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                position: relative;
+                width: auto;
+
+                &__item
+                {
+                    display: inline-block;
+
+                    &__link
+                    {
+                        padding: rems(10px);
+                    }
+
+                    &__sub-list
+                    {
+                        width: rems(200px);
+                    }
+                }
+            }
+        }
+    }
+
+    &__toggle
+    {
+        padding: 0 rems(15px);
+        flex-grow: 2;
+        text-align: right;
+
+        &__burger
+        {
+            border: 0;
+            outline: none;
+            font-size: rems(30px);
+            line-height: rems(40px);
+            justify-content: flex-end;
+        }
+
+        @media (min-width:1024px)
+        {
+            display: none;
+        }
+    }
+
+    @media (min-width:1024px)
+    {
+        padding-left: rems(20px);
+        padding-right: rems(20px);
+        flex-wrap: initial;
+
+        &__logo
+        {
+            padding: 0;
+        }
+    }
+    /* Themes ------ */
+    &.nav--clear
+    {
+        background-color: transparent;
+        position: absolute;
+        z-index: 999;
+
+        #{ $self }__toggle
+        {
+            &__burger
+            {
+                background-color: transparent;
+                color: #fff;
+            }
+        }
+
+        #{ $self }__logo
+        {
+            &__link
+            {
+                color: #fff;
+            }
+        }
+
+        #{ $self }__menu__list
+        {
+            background-color: #fff;
+
+            &__item__link
+            {
+                color: #000;
+            }
+
+            &__item__sub-list
+            {
+                background-color: whitesmoke;
+
+                &__link
+                {
+                    color: #000;
+                }
+            }
+        }
+
+        @media (min-width:1024px)
+        {
+            #{ $self }__menu__list
+            {
+                background-color: transparent;
+
+                &__item__link
+                {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

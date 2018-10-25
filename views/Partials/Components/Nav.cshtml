@@ -1,0 +1,56 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Web;
+@{
+    var site = Model.Content.Site();
+    var selection = site.Children.Where(x => x.IsVisible());
+    var home = (Home)Model.Content.Site();
+}
+<nav class="nav nav--clear">
+    <div class="nav__logo" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="@home.Sitename">
+        <meta itemprop="description" content="360Jungle - Virtual Tours Software for desktop tablet, mobile and virtual reality">
+        @if (home.SiteLogo != null && !string.IsNullOrEmpty(home.SiteLogo.Url))
+        {
+            <a class="nav__logo__link" href="~/" itemprop="url">
+                <img class="logo-image" src="@home.SiteLogo.Url" alt="@home.Sitename" itemprop="logo" />
+            </a>
+        }
+        else
+        {
+            <a class="nav__logo__link" href="~/" itemprop="url">@home.Sitename</a>
+        }
+    </div>
+    <div class="nav__toggle">
+        <button class="nav__toggle__burger icon icon--burger js-nav-burger"></button>
+    </div>
+    <div class="nav__menu">
+        <ul class="nav__menu__list js-nav-menu">
+            <li class="nav__menu__list__item">
+                <a class="nav__menu__list__item__link @Html.Raw(Model.Content.Id == site.Id ? "nav__menu__list__item__link--active" : string.Empty)" href="~/">@site.Name</a>
+            </li>
+            @foreach (var item in selection)
+            {
+                <li class="nav__menu__list__item">
+                    @{ 
+                        bool hasChildren = item.Children.Where(x => x.IsVisible()).Any();
+                    }
+                    <a class="nav__menu__list__item__link @(item.IsAncestorOrSelf(Model.Content) ? "nav__menu__list__item__link--active" : string.Empty)" href="@item.Url">
+                        <span>@item.Name</span>
+                        @Html.Raw(hasChildren ? "<span class='fas fa-caret-down nav__menu__list__item__link__caret js-nav-sub'></span>" : string.Empty)
+                    </a>
+                    @if (hasChildren)
+                    {
+                        <ul class="nav__menu__list__item__sub-list">
+                            @foreach (var childItem in item.Children.Where(x => x.IsVisible()))
+                            {
+                                <li>
+                                    <a class="nav__menu__list__item__sub-list__link" href="@childItem.Url">@childItem.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</nav>
